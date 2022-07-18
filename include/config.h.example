@@ -1,0 +1,12 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+const char* ssid = "";
+const char* password = "";
+const char* mqtt_server = "";
+const char* mqtt_id = "";
+
+const char* state_topic = "home/sensors/<location>";
+const char* home_assistant_topic = "homeassistant/sensor/esp32-<location>";
+
+#endif
