@@ -51,5 +51,5 @@ void loop()
   SensorData data = tempReader.getData();
 
   mqttClient.publishSensorData(&data);
-  delay(1000);
+  delay(1000 * 15);
 }
