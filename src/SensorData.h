@@ -1,19 +1,10 @@
 #ifndef SENSORDATA_H
 #define SENSORDATA_H
 
-
-struct BaseSensorData {
-  public:
-    /**
-     * The error code, if available.
-     */
-    uint8_t error;
-};
-
 /**
  * A structure of all the sensor data.
  */
-struct SensorData: BaseSensorData {
+struct SensorData {
   public:
     /**
      * The co2 concentration in ppm.

@@ -11,7 +11,7 @@
 class BaseSensorReader {
   public:
     virtual void begin();
-    virtual BaseSensorData getData();
+    virtual SensorData getData();
 };
 
 
@@ -72,7 +72,7 @@ public:
   /**
    * Retrieve the sensor data
    */
-  BaseSensorData getData()
+  SensorData getData()
   {
     SensorData data;
 
