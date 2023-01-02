@@ -48,6 +48,7 @@ class MQTT {
         Serial.println("Could not announce " + name);
       }
     }
+
   public:
     MQTT(const char* state_topic, const char* mqtt_id, const char* mqtt_server) : mqttClient(wifiClient)
     {
@@ -85,17 +86,21 @@ class MQTT {
       anounceSensor("homeassistant/sensor/woonesp32/tvoc/config", "Woonkamer TVOC", "esp32_woonkamer_tvoc", "volatile_organic_compounds", "PPB", "{{ value_json.tvoc }}");
     }
 
+    double round2(double value) {
+      return (int)(value * 100 + 0.5) / 100.0;
+    }
+
     void publishSensorData(SensorData* sensorData) {
       StaticJsonDocument<128> doc;
       char output[128];
 
-      doc["co2"] = sensorData->co2;
-      doc["tvoc"] = sensorData->tvoc;
-      doc["tempC"] = sensorData->tempC;
-      doc["pressure"] = sensorData->pressure;
-      doc["altitude"] = sensorData->altitude;
-      doc["humidity"] = sensorData->humidity;
-      doc["error"] = sensorData->error;
+      doc["co2"]      = sensorData->co2;
+      doc["tvoc"]     = sensorData->tvoc;
+      doc["tempC"]    = round2(sensorData->tempC);
+      doc["pressure"] = round2(sensorData->pressure);
+      doc["altitude"] = round2(sensorData->altitude);
+      doc["humidity"] = round2(sensorData->humidity);
+      doc["error"]    = sensorData->error;
 
       serializeJson(doc, output);
       Serial.println(output);
@@ -103,4 +108,3 @@ class MQTT {
       mqttClient.publish("esp32/woonkamer", output);
     }
 };
-
