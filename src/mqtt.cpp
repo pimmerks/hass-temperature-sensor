@@ -40,11 +40,7 @@ class MQTT {
       serializeJson(doc, output);
       delay(20);
 
-      if (mqttClient.publish(topic, output)) {
-        Serial.println("Announcing " + name + " on " + topic + " with config:");
-        Serial.println(output);
-        Serial.println();
-      } else {
+      if (!mqttClient.publish(topic, output)) {
         Serial.println("Could not announce " + name);
       }
     }
@@ -77,8 +73,6 @@ class MQTT {
     }
 
     void announceSensorToHomeAssistant() {
-      Serial.println("Anouncing sensors to Home Assistant");
-      ensureConnection();
       anounceSensor("homeassistant/sensor/woonesp32/temperature/config", "Woonkamer Temperatuur", "esp32_woonkamer_temp", "temperature", "°C", "{{ value_json.tempC }}");
       anounceSensor("homeassistant/sensor/woonesp32/humidity/config", "Woonkamer Luchtvochtigheid", "esp32_woonkamer_hum", "humidity", "%", "{{ value_json.humidity }}");
       anounceSensor("homeassistant/sensor/woonesp32/pressure/config", "Woonkamer Luchtdurk", "esp32_woonkamer_pressure", "pressure", "Pa", "{{ value_json.pressure }}");

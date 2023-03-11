@@ -46,6 +46,7 @@ void loop()
 
   // Ensure we are connected to our mqtt server.
   mqttClient.ensureConnection();
+  mqttClient.announceSensorToHomeAssistant();
 
   // We are connected to wifi and mqtt, let's read data and send it to our mqtt server
   SensorData data = tempReader.getData();
